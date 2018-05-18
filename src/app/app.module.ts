@@ -10,7 +10,7 @@ import { QuizListComponent } from './quiz-list/quiz-list.component';
 
 const routes: Routes = [
   { path: '', component: AppComponent },
-  { path: 'quiz/:id', component: QuizComponent },
+  { path: 'quiz', component: QuizComponent },
   { path: 'quiz-list', component: QuizListComponent }
 
 
