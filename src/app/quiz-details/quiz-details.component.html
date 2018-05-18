@@ -6,7 +6,7 @@
       <h4 class="card-title">Description</h4>
       <p class="card-text">{{indQuiz.description}}</p>
       <div style="text-align: center">
-      <a routerLink="/quiz" class="btn btn-success">Start</a>
+      <a (click)="goToQuiz(indQuiz)" class="btn btn-success">Start</a>
     </div>
     </div>
   </div>

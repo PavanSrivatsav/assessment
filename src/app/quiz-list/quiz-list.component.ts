@@ -30,7 +30,7 @@ export class QuizListComponent implements OnInit {
   }
 
   goToQuizDetails(quiz){    
-    this.router.navigate(['/quiz/'+quiz.quizId]);
+    this.router.navigate(['/quizDetails/'+quiz.quizId]);
   }
 
 }

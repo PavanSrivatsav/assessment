@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { Service } from '../service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute,Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-quiz-details',
@@ -11,7 +12,7 @@ export class QuizDetailsComponent implements OnInit {
 
   public indQuiz;
 
-  constructor(private _service:Service,private activatedRoute: ActivatedRoute) {
+  constructor(private _service:Service,private activatedRoute: ActivatedRoute,private router: Router) {
     this.activatedRoute.params.subscribe(params => {     
         this.getQuiz(params.id);        
     });
@@ -34,5 +35,9 @@ getQuiz(id){
       console.log('done loading indv quiz');
     }
   );
+}
+
+goToQuiz(quiz){
+  this.router.navigate(['/quiz/'+quiz.quizId]);
 }
 }

@@ -1,7 +1,8 @@
 <div class="container">
-
+  
+{{quizQuestion.title}}
   <div style="margin-top:50px">
-  <a class="btn btn-primary" style="margin-right:40px">Previous</a>
-  <a class="btn btn-primary">Next</a>
+  <a class="btn btn-primary" (click)=previousQn() *ngIf="currentQuestion>1" style="margin-right:40px">Previous</a>
+  <a class="btn btn-primary" *ngIf="currentQuestion < quizQuestionLinks.length" (click)=nextQn()>Next</a>
 </div>
 </div>

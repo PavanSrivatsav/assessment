@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Service } from '../service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -7,9 +9,77 @@ import { Component, OnInit } from '@angular/core';
 })
 export class QuizComponent implements OnInit {
 
-  constructor() { }
+  public quizQuestionLinks;
+  public quizQuestion;
+  public currentQuestion:number;   
 
-  ngOnInit() {
+  constructor(private _service:Service,private activatedRoute: ActivatedRoute) {
+    this.currentQuestion=1;
+    this.activatedRoute.params.subscribe(params => {     
+        this.getQuestionLinks(params.id);        
+    });
   }
 
+  ngOnInit() {
+    console.log("inside quiz");
+  }
+
+  getQuestionLinks(quizId){
+    this._service.getQuestionLinks(quizId).subscribe(
+      // the first argument is a function which runs on success
+      data => {
+        this.quizQuestionLinks = data;    
+      },
+      // the second argument is a function which runs on error
+      err => console.error(err),
+      // the third argument is a function which runs on completion
+      () => {
+        console.log('done loading indv quiz links');
+        this.getQuestion();
+      }
+    );
+  }
+
+  // getQuestions(quizId){
+  //   this._service.getQuestionLinks(quizId).subscribe(
+  //     // the first argument is a function which runs on success
+  //     data => {
+  //       this.quizQuestion = data;    
+  //     },
+  //     // the second argument is a function which runs on error
+  //     err => console.error(err),
+  //     // the third argument is a function which runs on completion
+  //     () => {
+  //       console.log('done loading indv quiz');
+  //     }
+  //   );
+  // }
+  nextQn(){
+    this.currentQuestion++; 
+    
+    this.getQuestion();
+  }
+
+  previousQn(){
+    this.currentQuestion--; 
+    
+    this.getQuestion();
+  }
+
+  getQuestion() {
+    let link=this.quizQuestionLinks[this.currentQuestion-1].links[0].href;
+    this._service.getQuestion(link).subscribe(
+      // the first argument is a function which runs on success
+      data => {
+        this.quizQuestion = data;            
+      },
+      // the second argument is a function which runs on error
+      err => {console.error(err);},
+      // the third argument is a function which runs on completion
+      () => {
+        console.log('done loading indv quiz');        
+      }
+    );
+  }
+  
 }

@@ -24,5 +24,13 @@ export class Service {
     return this.http.get('http://localhost:8098/quiz/'+id);
   }
 
+  getQuestionLinks(quizId) {
+    return this.http.get('http://localhost:8098/question/assessment/'+quizId);
+  }
+
+  getQuestion(link) {
+    return this.http.get(link);
+  }
+
 }
 
