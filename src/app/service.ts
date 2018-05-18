@@ -16,9 +16,9 @@ export class Service {
     return this.http.get('http://localhost:8098/quiz/all/linked');
   }
 
-  getQuiz(link) {
-    return this.http.get(link);
-  }
+  // getQuiz(link) {
+  //   return this.http.get(link);
+  // }
 
   getIndQuiz(id) {
     return this.http.get('http://localhost:8098/quiz/'+id);
