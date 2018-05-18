@@ -12,7 +12,7 @@
     <tr *ngFor="let quiz of quizzes; index as i;">
       <td>{{i+1}}</td>
       <td>{{quiz.title}}</td>
-      <td><a (click)="goToQuizDetails(quiz)">{{quiz.links[0].href}}</a></td>      
+      <td><button class="btn btn-primary" (click)="goToQuizDetails(quiz)">Details</button></td>      
     </tr>
     </tbody>
   </table>
