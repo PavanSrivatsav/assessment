@@ -1,10 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {QuizComponent} from './quiz/quiz.component';
 import {AppComponent} from './app.component';
+import {QuizListComponent} from './quiz-list/quiz-list.component';
 
 
 const routes: Routes = [
-  { path: 'quizzes', component: AppComponent },
+  { path: '', component: AppComponent },
+  { path: 'quiz/:id', component: QuizComponent },
+  { path: 'quiz-list', component: QuizListComponent }
+
 
 ];
 
@@ -17,4 +22,7 @@ const routes: Routes = [
   ],
   declarations: []
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+
+
+}

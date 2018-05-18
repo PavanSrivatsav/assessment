@@ -1,18 +1,4 @@
-<div class="container">
-  <h2>Quizzes</h2>
-  <table class="table table-bordered">
-    <thead>
-    <tr>
-      <th>S.No</th>
-      <th>Title</th>
-      <th>Link</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let quiz of quizzes; index as i;">
-      <td>{{i+1}}</td>
-      <td>{{quiz.title}}</td>
-      <td><a (click)="getQuiz(quiz.links[0].href)">{{quiz.links[0].href}}</a></td>
-    </tr>
-    </tbody>
-  </table>
+<router-outlet></router-outlet>
+
+
+
