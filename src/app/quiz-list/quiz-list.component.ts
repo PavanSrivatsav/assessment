@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Service} from '../service';
 import {Router} from '@angular/router';
-import {QuizComponent} from '../quiz/quiz.component';
+import {QuizDetailsComponent} from '../quiz-details/quiz-details.component';
 
 @Component({
   selector: 'app-quiz-list',
@@ -30,22 +30,26 @@ export class QuizListComponent implements OnInit {
     );
   }
 
-  getQuiz(link) {
-    console.log('hai');
-    this._service.getQuiz(link).subscribe(
-      // the first argument is a function which runs on success
-      data => {
-        this.quiz = data;
-        console.log(data);
-      },
-      // the second argument is a function which runs on error
-      err => console.error(err),
-      // the third argument is a function which runs on completion
-      () => {
-        console.log('done loading indv quiz');
-        this.router.navigate(['/quiz/']);
-      }
-    );
+  // getQuiz(link) {
+  //   console.log('hai');
+  //   this._service.getQuiz(link).subscribe(
+  //   // the first argument is a function which runs on success
+  //   data => {
+  //     this.quiz = data;
+  //   },
+  //   // the second argument is a function which runs on error
+  //   err => console.error(err),
+  //   // the third argument is a function which runs on completion
+  //   () => {
+  //     console.log('done loading indv quiz');
+  //     this.router.navigate(['/quiz/'+this.quiz.id]);
+  //   }
+  // );
+    
+  // }
+
+  goToQuizDetails(quiz){    
+    this.router.navigate(['/quiz/'+quiz.quizId]);
   }
 
 }

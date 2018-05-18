@@ -13,7 +13,7 @@ export class AppComponent  implements OnInit{
 
   ngOnInit() {
     console.log('started main component');
-    this.router.navigate(['/quiz-list']);
+    this.router.navigate(['/quizzes']);
   }
 
 }

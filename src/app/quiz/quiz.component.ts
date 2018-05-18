@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-quiz',
@@ -10,7 +10,6 @@ export class QuizComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('inside ind quiz');
   }
 
 }

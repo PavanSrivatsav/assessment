@@ -13,11 +13,15 @@ export class Service {
 
   // Uses http.get() to load data from a single API endpoint
   getQuizzes() {
-    return this.http.get('http://192.168.2.119:8098/quiz/get/all/linked');
+    return this.http.get('http://localhost:8098/quiz/all/linked');
   }
 
   getQuiz(link) {
     return this.http.get(link);
+  }
+
+  getIndQuiz(id) {
+    return this.http.get('http://localhost:8098/quiz/'+id);
   }
 
 }
