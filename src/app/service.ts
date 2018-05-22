@@ -7,6 +7,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class Service {
+  body:any;
+  headers:HttpHeaders;
 
   constructor(private http: HttpClient) {
   }
@@ -30,6 +32,14 @@ export class Service {
 
   getQuestion(link) {
     return this.http.get(link);
+  }
+
+  verifyToken(token:string) {
+    this.body = {"token" : token};
+    this.headers = (new HttpHeaders())
+      .set('Content-type', 'application/json')
+      .set('Accept', 'application/json');
+    return this.http.post('http://localhost:8098/security/verifyToken', this.body, {headers: this.headers});
   }
 
 }

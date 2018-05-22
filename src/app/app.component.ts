@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Service} from './service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,11 +9,11 @@ import {Router} from '@angular/router';
 
 export class AppComponent  implements OnInit{
 
-  constructor(private _service: Service, private router: Router) { }
+  constructor(private _service: Service,private route:ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     console.log('started main component');
-    this.router.navigate(['/quizzes']);
+    console.log(this.router.url);
   }
 
 }

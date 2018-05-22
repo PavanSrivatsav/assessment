@@ -2,34 +2,32 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {Service} from './service';
 import { QuizDetailsComponent } from './quiz-details/quiz-details.component';
 import {RouterModule, Routes, Router} from '@angular/router';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { QuizComponent } from './quiz/quiz.component';
+import {AppInterceptor} from "./app.interceptor";
+import {TokenComponent} from "./token/token.component";
+import {AppRoutingModule} from "./app.routing.module";
 
-const routes: Routes = [
-  { path: '', component: AppComponent },
-  { path: 'quizDetails/:id', component: QuizDetailsComponent },
-  { path: 'quizzes', component: QuizListComponent },
-  { path: 'quiz/:id', component: QuizComponent }
-
-
-];
 @NgModule({
   declarations: [
     AppComponent,
     QuizDetailsComponent,
     QuizListComponent,
-    QuizComponent
+    QuizComponent,
+    TokenComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)  
+    AppRoutingModule
   ],
-  providers: [Service],
+  providers: [Service,
+    {provide:HTTP_INTERCEPTORS, useClass:AppInterceptor, multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 

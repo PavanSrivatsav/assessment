@@ -1,15 +1,18 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {QuizDetailsComponent} from './quiz-details/quiz-details.component';
 import {AppComponent} from './app.component';
 import {QuizListComponent} from './quiz-list/quiz-list.component';
+import {TokenComponent} from "./token/token.component";
+import {QuizComponent} from "./quiz/quiz.component";
 
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
-  { path: 'quiz/:id', component: QuizDetailsComponent },
-  { path: 'quiz-list', component: QuizListComponent }
-
+  { path: 'token/:token', component: TokenComponent},
+  { path: 'quizzes', component: QuizListComponent },
+  { path: 'quizDetails/:id', component: QuizDetailsComponent },
+  { path: 'quiz/:id', component: QuizComponent },
+  { path: '', component: QuizListComponent }
 
 ];
 
@@ -20,6 +23,7 @@ const routes: Routes = [
   exports: [
     RouterModule
   ],
+  providers: [],
   declarations: []
 })
 export class AppRoutingModule {
