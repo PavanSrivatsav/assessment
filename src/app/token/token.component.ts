@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Service} from "../service";
 
 @Component({
@@ -9,24 +9,25 @@ import {Service} from "../service";
 })
 export class TokenComponent implements OnInit {
 
-  token:string;
-  isTokenValid:boolean;
+  encryptedToken:string;
+  token:any;
 
-  constructor(private _service:Service, private activatedRoute: ActivatedRoute) {
+  constructor(private _service:Service, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.activatedRoute.queryParams
     this.activatedRoute.params.subscribe(params => {
-      this.token = params.token;
-      console.log(this.token);
-      _service.verifyToken(this.token).subscribe(
+      this.encryptedToken = params.token;
+      _service.decryptToken(this.encryptedToken).subscribe(
         data => {
-          this.isTokenValid = (!!data);
-          console.log(data, this.isTokenValid);
+          this.token = data;
         },
         // the second argument is a function which runs on error
         err => console.error(err),
         // the third argument is a function which runs on completion
         () => {
           console.log('Done verifying token');
-          console.log("Response from server for validation: ", this.isTokenValid);
+          console.log("Response from server for validation: ", this.token);
+          localStorage.setItem("jwtToken", this.token);
+          this.router.navigate(['']);
         }
       )
     });

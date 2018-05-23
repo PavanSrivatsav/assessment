@@ -7,8 +7,9 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class Service {
-  body:any;
-  headers:HttpHeaders;
+  body: any;
+  headers: Headers;
+
 
   constructor(private http: HttpClient) {
   }
@@ -23,23 +24,34 @@ export class Service {
   // }
 
   getIndQuiz(id) {
-    return this.http.get('http://localhost:8098/quiz/'+id);
+    return this.http.get('http://localhost:8098/quiz/' + id);
   }
 
   getQuestionLinks(quizId) {
-    return this.http.get('http://localhost:8098/question/assessment/'+quizId);
+    return this.http.get('http://localhost:8098/question/assessment/' + quizId);
   }
 
   getQuestion(link) {
     return this.http.get(link);
   }
 
-  verifyToken(token:string) {
-    this.body = {"token" : token};
-    this.headers = (new HttpHeaders())
-      .set('Content-type', 'application/json')
-      .set('Accept', 'application/json');
-    return this.http.post('http://localhost:8098/security/verifyToken', this.body, {headers: this.headers});
+  /*verifyToken(token: string) {
+    this.body = {"token": token};
+
+    return this.http.post('http://localhost:8098/security/verifyToken', this.body, httpOptions);
+
+  }*/
+
+  decryptToken(token: string) {
+    const headerOptions = {
+      headers: new HttpHeaders({
+        'encryptedToken': token,
+      }),
+      responseType: 'text' as 'text'
+    };
+
+    return this.http.get('http://localhost:8090/security/api/v2/token/decrypt', headerOptions);
+
   }
 
 }

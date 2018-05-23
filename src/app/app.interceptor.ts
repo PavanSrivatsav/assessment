@@ -6,7 +6,19 @@ import {Observable} from "rxjs/index";
 export class AppInterceptor implements HttpInterceptor {
 
   intercept(req:HttpRequest<any>, next:HttpHandler):Observable<HttpEvent<any>> {
-    console.log(req);
-    return next.handle(req);
+    let token = localStorage.getItem("jwtToken");
+    const authReq = req.clone({
+      headers: req.headers.set(
+        'Authorization',
+        token
+      )
+    });
+    console.log(authReq);
+    console.log(authReq.body);
+    if (token == null){
+      return next.handle(req);
+    } else {
+      return next.handle(authReq);
+    }
   }
 }
