@@ -29,7 +29,7 @@ export class TokenComponent implements OnInit {
         () => {
           console.log('Done verifying token');
           console.log("Response from server for validation: ", this.token);
-          sessionStorage.setItem("jwtToken", this.token);
+          localStorage.setItem("jwtToken", this.token);
           this.router.navigate(['']);
         }
       )

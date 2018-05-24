@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Service} from '../service';
 import {Router} from '@angular/router';
 import {QuizDetailsComponent} from '../quiz-details/quiz-details.component';
+import {DOCUMENT, LocationChangeListener, PlatformLocation} from "@angular/common";
+import {Observable} from "rxjs/index";
 
 @Component({
   selector: 'app-quiz-list',
@@ -11,8 +13,19 @@ import {QuizDetailsComponent} from '../quiz-details/quiz-details.component';
 export class QuizListComponent implements OnInit {
 
   public quizzes;
+  public redirect:boolean = true;
 
-  constructor(private _service: Service, private router: Router) { }
+  constructor(private _service: Service, private router: Router, platformLocation: PlatformLocation, @Inject(DOCUMENT) private document: any) {
+    platformLocation.onPopState((e) => {
+      console.log(e.state.navigationId);
+      console.log("Redirecting to core...", this.redirect);
+      if (this.redirect && e.state.navigationId == 1) {
+        localStorage.removeItem("jwtToken");
+        localStorage.clear();
+        this.document.location.href = 'http://localhost/core';
+      }
+    });
+  }
 
   ngOnInit() {
     this.getQuizzes();
@@ -23,13 +36,17 @@ export class QuizListComponent implements OnInit {
       // the first argument is a function which runs on success
       data => { this.quizzes = data},
       // the second argument is a function which runs on error
-      err => console.error(err),
-      // the third argument is a function which runs on completion
-      () => console.log('done loading quizzes')
+      err => {
+        console.error(err)
+        this.router.navigate(["/unauthorized"]);
+      },
+        // the third argument is a function which runs on completion
+        () => console.log('done loading quizzes')
     );
   }
 
-  goToQuizDetails(quiz){    
+  goToQuizDetails(quiz){
+    this.redirect = false;
     this.router.navigate(['/quizDetails/'+quiz.quizId]);
   }
 

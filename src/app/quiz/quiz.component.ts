@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Service } from '../service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -11,12 +11,12 @@ export class QuizComponent implements OnInit {
 
   public quizQuestionLinks;
   public quizQuestion;
-  public currentQuestion:number;   
+  public currentQuestion:number;
 
-  constructor(private _service:Service,private activatedRoute: ActivatedRoute) {
+  constructor(private _service:Service,private activatedRoute: ActivatedRoute, private router: Router) {
     this.currentQuestion=1;
-    this.activatedRoute.params.subscribe(params => {     
-        this.getQuestionLinks(params.id);        
+    this.activatedRoute.params.subscribe(params => {
+        this.getQuestionLinks(params.id);
     });
   }
 
@@ -28,15 +28,18 @@ export class QuizComponent implements OnInit {
     this._service.getQuestionLinks(quizId).subscribe(
       // the first argument is a function which runs on success
       data => {
-        this.quizQuestionLinks = data;    
+        this.quizQuestionLinks = data;
       },
       // the second argument is a function which runs on error
-      err => console.error(err),
-      // the third argument is a function which runs on completion
-      () => {
-        console.log('done loading indv quiz links');
-        this.getQuestion();
-      }
+      err => {
+        console.error(err);
+        this.router.navigate(["/unauthorized"]);
+      },
+          // the third argument is a function which runs on completion
+        () => {
+          console.log('done loading indv quiz links');
+          this.getQuestion();
+        }
     );
   }
 
@@ -44,7 +47,7 @@ export class QuizComponent implements OnInit {
   //   this._service.getQuestionLinks(quizId).subscribe(
   //     // the first argument is a function which runs on success
   //     data => {
-  //       this.quizQuestion = data;    
+  //       this.quizQuestion = data;
   //     },
   //     // the second argument is a function which runs on error
   //     err => console.error(err),
@@ -55,14 +58,14 @@ export class QuizComponent implements OnInit {
   //   );
   // }
   nextQn(){
-    this.currentQuestion++; 
-    
+    this.currentQuestion++;
+
     this.getQuestion();
   }
 
   previousQn(){
-    this.currentQuestion--; 
-    
+    this.currentQuestion--;
+
     this.getQuestion();
   }
 
@@ -71,15 +74,18 @@ export class QuizComponent implements OnInit {
     this._service.getQuestion(link).subscribe(
       // the first argument is a function which runs on success
       data => {
-        this.quizQuestion = data;            
+        this.quizQuestion = data;
       },
       // the second argument is a function which runs on error
-      err => {console.error(err);},
+      err => {
+        console.error(err);
+        this.router.navigate(["/unauthorized"]);
+      },
       // the third argument is a function which runs on completion
       () => {
-        console.log('done loading indv quiz');        
+        console.log('done loading indv quiz');
       }
     );
   }
-  
+
 }
