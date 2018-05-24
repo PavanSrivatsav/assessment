@@ -21,12 +21,15 @@ export class TokenComponent implements OnInit {
           this.token = data;
         },
         // the second argument is a function which runs on error
-        err => console.error(err),
-        // the third argument is a function which runs on completion
+        err => {
+          console.error(err);
+          this.router.navigate(['/unauthorized'])
+        },
+            // the third argument is a function which runs on completion
         () => {
           console.log('Done verifying token');
           console.log("Response from server for validation: ", this.token);
-          localStorage.setItem("jwtToken", this.token);
+          sessionStorage.setItem("jwtToken", this.token);
           this.router.navigate(['']);
         }
       )

@@ -11,6 +11,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import {AppInterceptor} from "./app.interceptor";
 import {TokenComponent} from "./token/token.component";
 import {AppRoutingModule} from "./app.routing.module";
+import {UnauthorizedComponent} from "./unauthorized/unauthorized.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {AppRoutingModule} from "./app.routing.module";
     QuizDetailsComponent,
     QuizListComponent,
     QuizComponent,
-    TokenComponent
+    TokenComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
