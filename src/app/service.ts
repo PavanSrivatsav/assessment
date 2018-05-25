@@ -16,7 +16,7 @@ export class Service {
 
   // Uses http.get() to load data from a single API endpoint
   getQuizzes() {
-    return this.http.get('http://localhost:8098/quiz/all/linked');
+    return this.http.get('http://192.168.2.119:8098/quiz/all/linked');
   }
 
   // getQuiz(link) {
@@ -24,11 +24,11 @@ export class Service {
   // }
 
   getIndQuiz(id) {
-    return this.http.get('http://localhost:8098/quiz/' + id);
+    return this.http.get('http://192.168.2.119:8098/quiz/' + id);
   }
 
   getQuestionLinks(quizId) {
-    return this.http.get('http://localhost:8098/question/assessment/' + quizId);
+    return this.http.get('http://192.168.2.119:8098/question/assessment/' + quizId);
   }
 
   getQuestion(link) {
@@ -38,7 +38,7 @@ export class Service {
   /*verifyToken(token: string) {
     this.body = {"token": token};
 
-    return this.http.post('http://localhost:8098/security/verifyToken', this.body, httpOptions);
+    return this.http.post('http://192.168.2.119:8098/security/verifyToken', this.body, httpOptions);
 
   }*/
 
@@ -50,7 +50,7 @@ export class Service {
       responseType: 'text' as 'text'
     };
 
-    return this.http.get('http://localhost:8090/security/api/v2/token/decrypt', headerOptions);
+    return this.http.get('http://192.168.2.119:8090/security/api/v2/token/decrypt', headerOptions);
 
   }
 

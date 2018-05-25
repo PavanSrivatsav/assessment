@@ -22,7 +22,7 @@ export class QuizListComponent implements OnInit {
       if (this.redirect && e.state.navigationId == 1) {
         localStorage.removeItem("jwtToken");
         localStorage.clear();
-        this.document.location.href = 'http://localhost/core';
+        this.document.location.href = 'http://192.168.2.119/core';
       }
     });
   }
