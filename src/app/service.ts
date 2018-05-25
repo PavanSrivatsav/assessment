@@ -51,7 +51,7 @@ export class Service {
       responseType: 'text' as 'text'
     };
 
-    return this.http.get(AppSettings.SECURITY_API_END_POINT + '/security/api/v2/token/decrypt', headerOptions);
+    return this.http.get(AppSettings.SECURITY_API_END_POINT + '/api/v2/token/decrypt', headerOptions);
 
   }
 
