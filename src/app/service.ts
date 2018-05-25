@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {AppSettings} from "./AppSettings";
 
 // const httpOptions = {
 //   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -9,14 +10,14 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class Service {
   body: any;
   headers: Headers;
-
+  ASSESSMENT:string = AppSettings.ASSESSMENT_API_END_POINT;
 
   constructor(private http: HttpClient) {
   }
 
   // Uses http.get() to load data from a single API endpoint
   getQuizzes() {
-    return this.http.get('http://192.168.2.119:8098/quiz/all/linked');
+    return this.http.get( this.ASSESSMENT + '/quiz/all/linked');
   }
 
   // getQuiz(link) {
@@ -24,11 +25,11 @@ export class Service {
   // }
 
   getIndQuiz(id) {
-    return this.http.get('http://192.168.2.119:8098/quiz/' + id);
+    return this.http.get(this.ASSESSMENT + '/quiz/' + id);
   }
 
   getQuestionLinks(quizId) {
-    return this.http.get('http://192.168.2.119:8098/question/assessment/' + quizId);
+    return this.http.get(this.ASSESSMENT + '/question/assessment/' + quizId);
   }
 
   getQuestion(link) {
@@ -50,7 +51,7 @@ export class Service {
       responseType: 'text' as 'text'
     };
 
-    return this.http.get('http://192.168.2.119:8090/security/api/v2/token/decrypt', headerOptions);
+    return this.http.get(AppSettings.SECURITY_API_END_POINT + '/security/api/v2/token/decrypt', headerOptions);
 
   }
 

@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {QuizDetailsComponent} from '../quiz-details/quiz-details.component';
 import {DOCUMENT, LocationChangeListener, PlatformLocation} from "@angular/common";
 import {Observable} from "rxjs/index";
+import {AppSettings} from "../AppSettings";
 
 @Component({
   selector: 'app-quiz-list',
@@ -22,7 +23,7 @@ export class QuizListComponent implements OnInit {
       if (this.redirect && e.state.navigationId == 1) {
         localStorage.removeItem("jwtToken");
         localStorage.clear();
-        this.document.location.href = 'http://192.168.2.119/core';
+        this.document.location.href = AppSettings.CORE_APPLICATION_END_POINT;
       }
     });
   }

@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Service} from './service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {DOCUMENT} from "@angular/common";
+import {AppSettings} from "./AppSettings";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,7 +21,8 @@ export class AppComponent  implements OnInit{
   goToPreviousUI() {
     localStorage.removeItem("jwtToken");
     localStorage.clear();
-    this.document.location.href = 'http://192.168.2.119/core';
+    console.log(AppSettings.CORE_APPLICATION_END_POINT);
+    this.document.location.href = AppSettings.CORE_APPLICATION_END_POINT;
   }
 
 }
